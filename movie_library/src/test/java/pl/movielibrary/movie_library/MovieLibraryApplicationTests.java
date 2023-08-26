@@ -1,13 +1,13 @@
-package com.movie.movie_library;
+package pl.movielibrary.movie_library;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ApiSqlApplicationTests {
+class MovieLibraryApplicationTests {
 
-    @Test
-    void contextLoads() {
-    }
+	@Test
+	void contextLoads() {
+	}
 
 }
