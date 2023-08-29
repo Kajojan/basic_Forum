@@ -13,10 +13,9 @@ public class MovieRepository {
     JdbcTemplate jdbcTemplate;
     public List<Movie> getAll(){
 
-        List<Movie> query = jdbcTemplate.query("SELECT id,movie_title,rating FROM movies",
+        return jdbcTemplate.query("SELECT id,movie_title,rating FROM movies",
                 BeanPropertyRowMapper.newInstance(Movie.class));
 
-        return query;
 
     }
 
