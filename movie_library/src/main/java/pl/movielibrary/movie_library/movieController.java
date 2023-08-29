@@ -1,6 +1,8 @@
 package pl.movielibrary.movie_library;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,32 +27,30 @@ public class movieController {
     }
 
     @PostMapping("")
-    public int addMovie(@RequestBody  List<Movie> movies){
-        return movieRepository.save(movies);
+    public ResponseEntity<String> addMovie(@RequestBody  List<Movie> movies){
+        movieRepository.save(movies);
+        return new ResponseEntity<>("Movie added successfully", HttpStatus.OK);
+
     }
 
     @PutMapping("/{id}")
-    public int updateMovie(@PathVariable("id") int id, @RequestBody Movie updatedMovie){
+    public  ResponseEntity<String> updateMovie(@PathVariable("id") int id, @RequestBody Movie updatedMovie){
         Movie movie = movieRepository.getById(id);
         if(movie != null){
             movie.setMovie_title(updatedMovie.getMovie_title());
             movie.setRating(updatedMovie.getRating());
             movieRepository.update(movie);
-            return 1;
+            return new ResponseEntity<>("Movie updated successfully", HttpStatus.OK);
         }else {
-            return -1;
+            return new ResponseEntity<>("Movie not found", HttpStatus.NOT_FOUND);
         }
     }
 
     @DeleteMapping("/{id}")
-    public int deleteMovie(@PathVariable("id") int id){
-        Movie movie = movieRepository.getById(id);
-        if(movie != null){
-            movieRepository.delete(movie.getId());
-            return 1;
-        }else {
-            return -1;
-        }
+    public ResponseEntity<String> deleteMovie(@PathVariable("id") int id){
+            movieRepository.delete(id);
+            return new ResponseEntity<>("Movie deleted successfully", HttpStatus.OK);
+
     }
 
 }
