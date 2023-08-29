@@ -42,4 +42,15 @@ public class movieController {
         }
     }
 
+    @DeleteMapping("/{id}")
+    public int deleteMovie(@PathVariable("id") int id){
+        Movie movie = movieRepository.getById(id);
+        if(movie != null){
+            movieRepository.delete(movie.getId());
+            return 1;
+        }else {
+            return -1;
+        }
+    }
+
 }
